@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Huffman Compression</title>
+    <style>
+        /* Your existing CSS styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 400px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .drop-zone {
+            border: 2px dashed #6c63ff;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #f9f9ff;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+
+        .drop-zone:hover {
+            background-color: #e6e6ff;
+        }
+
+        button {
+            background-color: #6c63ff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #574bcc;
+        }
+
+        .output {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Huffman Compression</h1>
+        <div class="drop-zone" id="dropZone">Drag and drop a file here, or click to upload</div>
+        <input type="file" id="fileInput" style="display: none;">
+        <button id="compressButton">Compress</button>
+        <button id="decompressButton">Decompress</button>
+        <div class="output" id="output"></div>
+    </div>
+
+    <script>
+        const dropZone = document.getElementById('dropZone');
+        const fileInput = document.getElementById('fileInput');
+        const compressButton = document.getElementById('compressButton');
+        const decompressButton = document.getElementById('decompressButton');
+        const output = document.getElementById('output');
+        let selectedFile = null;
+
+        // File selection handlers
+        dropZone.addEventListener('click', () => fileInput.click());
+        fileInput.addEventListener('change', (e) => {
+            selectedFile = e.target.files[0];
+            dropZone.textContent = `Selected file: ${selectedFile.name}`;
+        });
+
+        // Drag-and-drop
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.style.backgroundColor = '#e6e6ff';
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.style.backgroundColor = '#f9f9ff';
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            selectedFile = e.dataTransfer.files[0];
+            dropZone.textContent = `Selected file: ${selectedFile.name}`;
+        });
+
+        // Upload and process file
+        compressButton.addEventListener('click', () => processFile('/compress'));
+        decompressButton.addEventListener('click', () => processFile('/decompress'));
+
+        function processFile(endpoint) {
+            if (!selectedFile) {
+                output.textContent = 'Please select a file first.';
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', selectedFile);
+
+            fetch(endpoint, { method: 'POST', body: formData })
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then((data) => {
+                    console.log('Received Data:', data); // For debugging
+                    if (data.error) {
+                        output.textContent = `Error: ${data.error}`;
+                    } else {
+                        output.textContent = data.message;
+                        const a = document.createElement('a');
+                        a.href = data.downloadLink;
+                        a.download = data.filename; // Set the correct filename
+                        document.body.appendChild(a);
+                        a.click();
+                        document.body.removeChild(a);
+                    }
+                })
+                .catch((error) => {
+                    output.textContent = `Error: ${error.message}`;
+                    console.error('Error:', error); // For debugging
+                });
+        }
+    </script>
+</body>
+</html>
