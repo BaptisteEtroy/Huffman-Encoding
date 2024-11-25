@@ -1,7 +1,7 @@
 
 # Huffman Encoding
 
-Huffman Encoding is a project that implements file compression and decompression using the Huffman encoding algorithm. The project demonstrates the application of data compression techniques in both Python and C++.
+Huffman Encoding is a project that implements a C++ algorithm for file compression and decompression using Huffman encoding. The project demonstrates the application of this type of data compression technique using C++, with a Python and HTML web applicaton for better user experience.
 
 ## Table of Contents
 
@@ -30,7 +30,8 @@ Huffman-Encoding/
 │   └── index.html       # HTML template for web-based interface
 ├── app.py               # Flask application
 ├── routes.py            # Flask routes for web API
-└── README.md            # Project documentation
+├── README.md            # Project documentation
+└── requirements.txt     # Project requirements to be installed
 ```
 
 ## Requirements
@@ -74,20 +75,6 @@ Huffman-Encoding/
 
 ## Usage
 
-### Command-Line
-
-Run the compiled Huffman executable:
-
-```bash
-./huffman input.txt output.huf
-```
-
-To decompress:
-
-```bash
-./huffman -d output.huf decompressed.txt
-```
-
 ### Web Application
 
 1. Start the Flask server:
@@ -96,7 +83,7 @@ To decompress:
    python app.py
    ```
 
-2. Access the web interface at `http://127.0.0.1:5000`.
+2. Access the web interface at `http://127.0.0.1:5000` or `http://localhost:5000`
 
 ## License
 
