@@ -1,8 +1,6 @@
 
 # Huffman Encoding
 
-[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/<username>/Huffman-Encoding/build.yml)](https://github.com/<username>/Huffman-Encoding/actions) [![License](https://img.shields.io/github/license/<username>/Huffman-Encoding)](LICENSE) [![Language](https://img.shields.io/badge/language-C++-blue)](https://en.wikipedia.org/wiki/C%2B%2B) [![Python](https://img.shields.io/badge/python-3.8+-yellow)](https://www.python.org/)
-
 Huffman Encoding is a project that implements file compression and decompression using the Huffman encoding algorithm. The project demonstrates the application of data compression techniques in both Python and C++.
 
 ## Table of Contents
