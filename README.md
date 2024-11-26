@@ -47,7 +47,7 @@ Huffman-Encoding/
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/<username>/Huffman-Encoding.git
+   git clone https://github.com/restartdk/Huffman-Encoding.git
    cd Huffman-Encoding
    ```
 
