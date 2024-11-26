@@ -42,46 +42,43 @@ Huffman-Encoding/
 
 ## Installation
 
-### Python Environment
+Steps
+Clone the Repository: If Git is installed, open Command Prompt or PowerShell and run:
 
-1. Clone the repository:
 
-   ```bash
-   git clone https://github.com/BaptisteEtroy/Huffman-Encoding.git
-   cd Huffman-Encoding
-   ```
+```bash
+git clone https://github.com/<username>/Huffman-Encoding.git
+cd Huffman-Encoding
+```
 
-2. Create a virtual environment and install dependencies:
+Alternatively, download the repository as a ZIP file from GitHub and extract it.
 
-   ```bash
-   python3 -m venv env
-   source env/bin/activate
-   pip install -r requirements.txt
-   ```
+Set up the Python Environment: Create and activate a virtual environment:
 
-### C++ Compilation
+```bash
+python -m venv env
+env\Scripts\activate
+```
 
-1. Navigate to the `Huffman_C` directory:
+Install Dependencies: Install the required Python packages:
 
-   ```bash
-   cd Huffman_C
-   ```
+```bash
+pip install -r requirements.txt
+```
 
-2. Compile the C++ code:
+Compile the C++ Code: Navigate to the Huffman_C directory and compile the huffman.cpp file:
 
-   ```bash
-   g++ -o huffman huffman.cpp
-   ```
+```bash
+cd Huffman_C
+g++ -o huffman huffman.cpp
+```
 
-## Usage
+Run the Application: Start the Flask application:
 
-### Web Application
-
-1. Start the Flask server:
-
-   ```bash
-   python app.py
-   ```
+```bash
+cd ..
+python app.py
+```
 
 2. Access the web interface at `http://127.0.0.1:5000` or `http://localhost:5000`
 
