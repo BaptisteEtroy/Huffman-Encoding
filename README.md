@@ -47,7 +47,7 @@ Clone the Repository: If Git is installed, open Command Prompt or PowerShell and
 
 
 ```bash
-git clone https://github.com/<username>/Huffman-Encoding.git
+git clone https://github.com/BaptisteEtroy/Huffman-Encoding.git
 cd Huffman-Encoding
 ```
 
