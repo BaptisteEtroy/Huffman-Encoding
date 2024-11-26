@@ -81,7 +81,53 @@ cd ..
 python app.py
 ```
 
-2. Access the web interface at `http://127.0.0.1:5000` or `http://localhost:5000`
+Access the application at http://127.0.0.1:5000.
+
+**MACOS**
+
+Install Prerequisites:
+
+Install Python using Homebrew:
+```bash
+brew install python
+```
+
+Install Git (if not already installed):
+```bash
+brew install git
+```
+
+Clone the Repository: Open Terminal and run:
+
+```bash
+git clone https://github.com/<username>/Huffman-Encoding.git
+cd Huffman-Encoding
+```
+
+Set up the Python Environment: Create and activate a virtual environment:
+```bash
+python3 -m venv env
+source env/bin/activate
+```
+
+Install Dependencies: Install the required Python packages:
+```bash
+pip install -r requirements.txt
+```
+
+Compile the C++ Code: Navigate to the Huffman_C directory and compile the huffman.cpp file:
+```bash
+cd Huffman_C
+g++ -o huffman huffman.cpp
+```
+
+Run the Application: Start the Flask application:
+```bash
+cd ..
+python app.py
+```
+
+Access the application at http://127.0.0.1:5000.
 
 ## License
 
