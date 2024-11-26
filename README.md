@@ -42,6 +42,8 @@ Huffman-Encoding/
 
 ## Installation
 
+**WINDOWS**
+
 Steps
 Clone the Repository: If Git is installed, open Command Prompt or PowerShell and run:
 
