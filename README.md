@@ -42,9 +42,9 @@ Huffman-Encoding/
 
 ## Installation
 
-**WINDOWS**
+### WINDOWS
 
-Clone the Repository: If Git is installed, open Command Prompt or PowerShell and run:
+**Clone the Repository:** If Git is installed, open Command Prompt or PowerShell and run:
 
 
 ```bash
@@ -54,27 +54,27 @@ cd Huffman-Encoding
 
 Alternatively, download the repository as a ZIP file from GitHub and extract it.
 
-Set up the Python Environment: Create and activate a virtual environment:
+**Set up the Python Environment:** Create and activate a virtual environment:
 
 ```bash
 python -m venv env
 env\Scripts\activate
 ```
 
-Install Dependencies: Install the required Python packages:
+**Install Dependencies:** Install the required Python packages:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-Compile the C++ Code: Navigate to the Huffman_C directory and compile the huffman.cpp file:
+**Compile the C++ Code:** Navigate to the Huffman_C directory and compile the huffman.cpp file:
 
 ```bash
 cd Huffman_C
 g++ -o huffman huffman.cpp
 ```
 
-Run the Application: Start the Flask application:
+**Run the Application:** Start the Flask application:
 
 ```bash
 cd ..
@@ -83,9 +83,9 @@ python app.py
 
 Access the application at http://127.0.0.1:5000.
 
-**MACOS**
+### MACOS
 
-Install Prerequisites:
+**Install Prerequisites:**
 
 Install Python using Homebrew:
 ```bash
@@ -97,31 +97,31 @@ Install Git (if not already installed):
 brew install git
 ```
 
-Clone the Repository: Open Terminal and run:
+**Clone the Repository:** Open Terminal and run:
 
 ```bash
 git clone https://github.com/<username>/Huffman-Encoding.git
 cd Huffman-Encoding
 ```
 
-Set up the Python Environment: Create and activate a virtual environment:
+**Set up the Python Environment:** Create and activate a virtual environment:
 ```bash
 python3 -m venv env
 source env/bin/activate
 ```
 
-Install Dependencies: Install the required Python packages:
+**Install Dependencies:** Install the required Python packages:
 ```bash
 pip install -r requirements.txt
 ```
 
-Compile the C++ Code: Navigate to the Huffman_C directory and compile the huffman.cpp file:
+**Compile the C++ Code:** Navigate to the Huffman_C directory and compile the huffman.cpp file:
 ```bash
 cd Huffman_C
 g++ -o huffman huffman.cpp
 ```
 
-Run the Application: Start the Flask application:
+**Run the Application:** Start the Flask application:
 ```bash
 cd ..
 python app.py
