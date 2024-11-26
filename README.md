@@ -67,17 +67,9 @@ env\Scripts\activate
 pip install -r requirements.txt
 ```
 
-**Compile the C++ Code:** Navigate to the Huffman_C directory and compile the huffman.cpp file:
-
-```bash
-cd Huffman_C
-g++ -o huffman huffman.cpp
-```
-
 **Run the Application:** Start the Flask application:
 
 ```bash
-cd ..
 python app.py
 ```
 
@@ -85,22 +77,10 @@ Access the application at http://127.0.0.1:5000.
 
 ### MACOS
 
-**Install Prerequisites:**
-
-Install Python using Homebrew:
-```bash
-brew install python
-```
-
-Install Git (if not already installed):
-```bash
-brew install git
-```
-
 **Clone the Repository:** Open Terminal and run:
 
 ```bash
-git clone https://github.com/<username>/Huffman-Encoding.git
+git clone https://github.com/BaptisteEtroy/Huffman-Encoding.git
 cd Huffman-Encoding
 ```
 
@@ -115,15 +95,8 @@ source env/bin/activate
 pip install -r requirements.txt
 ```
 
-**Compile the C++ Code:** Navigate to the Huffman_C directory and compile the huffman.cpp file:
-```bash
-cd Huffman_C
-g++ -o huffman huffman.cpp
-```
-
 **Run the Application:** Start the Flask application:
 ```bash
-cd ..
 python app.py
 ```
 
