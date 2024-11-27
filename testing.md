@@ -22,8 +22,7 @@ This project uses [GoogleTest](https://github.com/google/googletest), a popular 
    make
 
   # Run the test suite
-  ```bash
-  ./huffman_tests
+   ./huffman_tests
 
 ## Google Test Output
    ```bash
