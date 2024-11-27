@@ -3,6 +3,8 @@
 
 Huffman Encoding is a project that implements a C++ algorithm for file compression and decompression using Huffman encoding. The project demonstrates the application of this type of data compression technique using C++, with a Python and HTML web applicaton for better user experience.
 
+[![Testing Documentation](https://img.shields.io/badge/Testing-Documentation-blue)](./testing.md)
+
 ## Table of Contents
 
 - [Features](#features)
