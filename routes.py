@@ -27,7 +27,7 @@ def compress():
 
     try:
         # Run the Huffman compression executable
-        subprocess.run(['./Huffman_C/huffman', 'c', input_path, output_path], check=True)
+        subprocess.run(['./Huffman_C/main', 'c', input_path, output_path], check=True)
     except subprocess.CalledProcessError as e:
         return jsonify({'error': f'Compression failed: {str(e)}'}), 500
 
@@ -52,7 +52,7 @@ def decompress():
 
     try:
         # Run the Huffman decompression executable
-        subprocess.run(['./Huffman_C/huffman', 'd', input_path, output_path], check=True)
+        subprocess.run(['./Huffman_C/main', 'd', input_path, output_path], check=True)
     except subprocess.CalledProcessError as e:
         return jsonify({'error': f'Decompression failed: {str(e)}'}), 500
 
