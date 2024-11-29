@@ -149,9 +149,9 @@ bool Compression::compress(const string &inputFile, const string &outputFile) {
     compressedFile.close();
 
     double compressionRatio = static_cast<double>(compressedSize) / static_cast<double>(originalSize);
-    cout << "Original size: " << originalSize << " bytes" << endl;
-    cout << "Compressed size: " << compressedSize << " bytes" << endl;
-    cout << "Compression ratio: " << compressionRatio << endl;
+    //cout << "Original size: " << originalSize << " bytes" << endl;
+    //cout << "Compressed size: " << compressedSize << " bytes" << endl;
+    //cout << "Compression ratio: " << compressionRatio << endl;
 
     return true;
 }
