@@ -1,30 +1,27 @@
 cmake_minimum_required(VERSION 3.10)
 project(HuffmanTests)
 
-# Add GoogleTest for testing
+# Add GoogleTest
 add_subdirectory(googletest)
 
-# Include directories for GoogleTest and your Huffman code
+# Include directories
 include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 include_directories(${CMAKE_SOURCE_DIR}/Huffman_C)
 
-# Automatically find all source files in the Huffman_C directory
-file(GLOB HUFFMAN_SOURCES Huffman_C/*.cpp)
+# Create Huffman library
+add_library(huffman_lib Huffman_C/huffman.cpp)
 
-# Create a library for the Huffman code
-add_library(huffman_lib ${HUFFMAN_SOURCES})
-
-# Create the main executable for the Huffman program
-add_executable(huffman_main Huffman_C/huffman_main.cpp)
-target_link_libraries(huffman_main huffman_lib)
-
-# Create the test executable
+# Add the test executable
 add_executable(huffman_tests tests/huffman_tests.cpp)
 target_link_libraries(huffman_tests huffman_lib gtest gtest_main pthread)
 
-# Enable testing and add the tests to CTest
+# Enable testing
 enable_testing()
 add_test(NAME HuffmanTests COMMAND huffman_tests)
 
-# Memory leakage check during debug builds
+# Memory leakage check
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address -g")
+
+# Add the main executable
+add_executable(huffman_main Huffman_C/huffman_main.cpp)
+target_link_libraries(huffman_main huffman_lib)
