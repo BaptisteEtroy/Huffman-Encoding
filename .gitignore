@@ -1,5 +1,14 @@
+# Input/Output Files for Compression and Decompression
 input.txt
 output.txt
 compressed.bin
 
+# Compiled Python files
+__pycache__/
+
+# Virtual Environment
+.vscode
 .DS_Store
+googletest/
+build/
+
