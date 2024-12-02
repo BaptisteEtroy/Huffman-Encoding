@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
                 cout << "Decompression completed successfully." << endl;
             }
         }
-        else
+        else 
         {
             throw invalid_argument("Invalid mode. Use 'c' for compression or 'd' for decompression.");
         }

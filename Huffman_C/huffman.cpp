@@ -162,7 +162,7 @@ bool Compression::compress(const string &inputFile, const string &outputFile) {
         return false;
     }
 }
-
+ 
 // Decompression Implementation
 bool Decompression::decompress(const string &inputFile, const string &outputFile) {
     // Check if input file exists
