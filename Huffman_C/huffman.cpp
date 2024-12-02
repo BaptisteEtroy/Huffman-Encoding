@@ -39,125 +39,137 @@ void Huffman::generateCodes(Node *node, const string &str) {
 
 // Compression Implementation
 bool Compression::compress(const string &inputFile, const string &outputFile) {
-    ifstream inFile(inputFile, ios::binary | ios::ate);
-    if (!inFile.is_open()) {
-        cerr << "Error opening input file: " << inputFile << endl;
-        return false;
-    }
+    try {
+        // Check if input file exists
+        if (!filesystem::exists(inputFile)){
+            throw runtime_error("Input file does not exist: " + inputFile);
+        }
 
-    streamsize originalSize = inFile.tellg();
-    inFile.seekg(0, ios::beg);
+        ifstream inFile(inputFile, ios::binary | ios::ate);
+        if (!inFile.is_open()) {
+            throw ios_base::failure("Error opening input file: " + inputFile);;
+        }
 
-    unordered_map<char, uint64_t> frequency;
-    char ch;
-    while (inFile.get(ch)) {
-        frequency[ch]++;
-    }
-    inFile.clear();
-    inFile.seekg(0, ios::beg);
+        streamsize originalSize = inFile.tellg();
+        inFile.seekg(0, ios::beg);
 
-    priority_queue<Node *, vector<Node *>, Compare> minHeap;
-    for (const auto &[character, freq] : frequency) {
-        Node *node = new Node(character, freq);
-        minHeap.push(node);
-    }
+        unordered_map<char, uint64_t> frequency;
+        char ch;
+        while (inFile.get(ch)) {
+            frequency[ch]++;
+        }
+        inFile.clear();
+        inFile.seekg(0, ios::beg);
 
-    while (minHeap.size() > 1) {
-        Node *left = minHeap.top();
-        minHeap.pop();
-        Node *right = minHeap.top();
-        minHeap.pop();
-        Node *newNode = new Node('\0', left->freq + right->freq);
-        newNode->left = left;
-        newNode->right = right;
-        minHeap.push(newNode);
-    }
+        priority_queue<Node *, vector<Node *>, Compare> minHeap;
+        for (const auto &[character, freq] : frequency) {
+            Node *node = new Node(character, freq);
+            minHeap.push(node);
+        }
 
-    root = minHeap.top();
-    generateCodes(root, "");
+        while (minHeap.size() > 1) {
+            Node *left = minHeap.top();
+            minHeap.pop();
+            Node *right = minHeap.top();
+            minHeap.pop();
+            Node *newNode = new Node('\0', left->freq + right->freq);
+            newNode->left = left;
+            newNode->right = right;
+            minHeap.push(newNode);
+        }
 
-    ofstream outFile(outputFile, ios::binary);
-    if (!outFile.is_open()) {
-        cerr << "Error opening output file: " << outputFile << endl;
-        return false;
-    }
+        root = minHeap.top();
+        generateCodes(root, "");
 
-    uint64_t codebookSizePosition = outFile.tellp();
-    uint64_t codebookSize = 0;
-    outFile.write(reinterpret_cast<char *>(&codebookSize), sizeof(codebookSize));
+        ofstream outFile(outputFile, ios::binary);
+        if (!outFile.is_open()) {
+            throw ios_base::failure("Error opening output file: " + outputFile);
+        }
 
-    uint64_t codeCount = huffmanCodes.size();
-    outFile.write(reinterpret_cast<char *>(&codeCount), sizeof(codeCount));
+        uint64_t codebookSizePosition = outFile.tellp();
+        uint64_t codebookSize = 0;
+        outFile.write(reinterpret_cast<char *>(&codebookSize), sizeof(codebookSize));
 
-    for (const auto &[character, codeStr] : huffmanCodes) {
-        outFile.put(character);
+        uint64_t codeCount = huffmanCodes.size();
+        outFile.write(reinterpret_cast<char *>(&codeCount), sizeof(codeCount));
 
-        uint64_t codeLength = codeStr.size();
-        outFile.write(reinterpret_cast<char *>(&codeLength), sizeof(codeLength));
+        for (const auto &[character, codeStr] : huffmanCodes) {
+            outFile.put(character);
 
-        uint64_t numFullBytes = codeLength / 8;
-        uint64_t remainingBits = codeLength % 8;
-        uint64_t totalBytes = numFullBytes + (remainingBits ? 1 : 0);
+            uint64_t codeLength = codeStr.size();
+            outFile.write(reinterpret_cast<char *>(&codeLength), sizeof(codeLength));
 
-        vector<unsigned char> codeBytes(totalBytes, 0);
+            uint64_t numFullBytes = codeLength / 8;
+            uint64_t remainingBits = codeLength % 8;
+            uint64_t totalBytes = numFullBytes + (remainingBits ? 1 : 0);
 
-        for (uint64_t i = 0; i < codeLength; ++i) {
-            if (codeStr[i] == '1') {
-                codeBytes[i / 8] |= (1 << (7 - (i % 8)));
+            vector<unsigned char> codeBytes(totalBytes, 0);
+
+            for (uint64_t i = 0; i < codeLength; ++i) {
+                if (codeStr[i] == '1') {
+                    codeBytes[i / 8] |= (1 << (7 - (i % 8)));
+                }
+            }
+
+            outFile.write(reinterpret_cast<char *>(&codeBytes[0]), totalBytes);
+        }
+
+        std::streampos currentPosition = outFile.tellp();
+        codebookSize = static_cast<uint64_t>(currentPosition) - sizeof(uint64_t);
+        outFile.seekp(codebookSizePosition, ios::beg);
+        outFile.write(reinterpret_cast<char *>(&codebookSize), sizeof(codebookSize));
+        outFile.seekp(0, ios::end);
+
+        unsigned char buffer = 0;
+        int bitCount = 0;
+
+        while (inFile.get(ch)) {
+            const string &code = huffmanCodes[ch];
+            for (char bitChar : code) {
+                buffer = (buffer << 1) | (bitChar == '1' ? 1 : 0);
+                bitCount++;
+                if (bitCount == 8) {
+                    outFile.put(buffer);
+                    buffer = 0;
+                    bitCount = 0;
+                }
             }
         }
 
-        outFile.write(reinterpret_cast<char *>(&codeBytes[0]), totalBytes);
-    }
-
-    std::streampos currentPosition = outFile.tellp();
-    codebookSize = static_cast<uint64_t>(currentPosition) - sizeof(uint64_t);
-    outFile.seekp(codebookSizePosition, ios::beg);
-    outFile.write(reinterpret_cast<char *>(&codebookSize), sizeof(codebookSize));
-    outFile.seekp(0, ios::end);
-
-    unsigned char buffer = 0;
-    int bitCount = 0;
-
-    while (inFile.get(ch)) {
-        const string &code = huffmanCodes[ch];
-        for (char bitChar : code) {
-            buffer = (buffer << 1) | (bitChar == '1' ? 1 : 0);
-            bitCount++;
-            if (bitCount == 8) {
-                outFile.put(buffer);
-                buffer = 0;
-                bitCount = 0;
-            }
+        if (bitCount > 0) {
+            buffer <<= (8 - bitCount);
+            outFile.put(buffer);
         }
-    }
 
-    if (bitCount > 0) {
-        buffer <<= (8 - bitCount);
-        outFile.put(buffer);
-    }
+        inFile.close();
+        outFile.close();
 
-    inFile.close();
-    outFile.close();
+        ifstream compressedFile(outputFile, ios::binary | ios::ate);
+        if (!compressedFile.is_open()) {
+            throw ios_base::failure("Error opening compressed file to get size: " + outputFile);
+        }
+        streamsize compressedSize = compressedFile.tellg();
+        compressedFile.close();
 
-    ifstream compressedFile(outputFile, ios::binary | ios::ate);
-    if (!compressedFile.is_open()) {
-        cerr << "Error opening compressed file to get size: " << outputFile << endl;
+        double compressionRatio = static_cast<double>(compressedSize) / static_cast<double>(originalSize);
+        //cout << "Original size: " << originalSize << " bytes" << endl;
+        //cout << "Compressed size: " << compressedSize << " bytes" << endl;
+        //cout << "Compression ratio: " << compressionRatio << endl;
+
+        return true;
+    } catch (const std::exception &e) {
+        cerr << "Compression error: " << e.what() << endl;
         return false;
     }
-    streamsize compressedSize = compressedFile.tellg();
-    compressedFile.close();
-
-    double compressionRatio = static_cast<double>(compressedSize) / static_cast<double>(originalSize);
-    //cout << "Original size: " << originalSize << " bytes" << endl;
-    //cout << "Compressed size: " << compressedSize << " bytes" << endl;
-    //cout << "Compression ratio: " << compressionRatio << endl;
-
-    return true;
 }
-
+ 
 // Decompression Implementation
 bool Decompression::decompress(const string &inputFile, const string &outputFile) {
+    // Check if input file exists
+    if (!filesystem::exists(inputFile)){
+        throw runtime_error("Input file does not exist: " + inputFile);
+    }
+
     ifstream inFile(inputFile, ios::binary);
     if (!inFile.is_open()) {
         cerr << "Error opening input file: " << inputFile << endl;
