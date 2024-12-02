@@ -1,6 +1,19 @@
 from flask import Blueprint, request, jsonify, send_from_directory, render_template
 import subprocess
 import os
+import platform
+
+def detect_os():
+    os_name = platform.system()
+
+    if os_name == "Darwin":
+        return 'main'
+    elif os_name == "Windows":
+        return "main.exe"
+    elif os_name == "Linux":
+        return "main.exe"
+    else:
+        return "main"
 
 UPLOAD_FOLDER = os.path.dirname(os.path.abspath(__file__))  # Directory for uploaded files
 
@@ -27,7 +40,7 @@ def compress():
 
     try:
         # Run the Huffman compression executable
-        subprocess.run(['./Huffman_C/main', 'c', input_path, output_path], check=True)
+        subprocess.run([f'./Huffman_C/{detect_os()}', 'c', input_path, output_path], check=True)
     except subprocess.CalledProcessError as e:
         return jsonify({'error': f'Compression failed: {str(e)}'}), 500
 
