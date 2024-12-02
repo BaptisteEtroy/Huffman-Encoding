@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.10)
 project(HuffmanTests)
 
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 # Add GoogleTest
 add_subdirectory(googletest)
 
@@ -23,5 +26,5 @@ add_test(NAME HuffmanTests COMMAND huffman_tests)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address -g")
 
 # Add the main executable
-add_executable(huffman_main Huffman_C/huffman_main.cpp)
-target_link_libraries(huffman_main huffman_lib)
+add_executable(main Huffman_C/huffman_main.cpp)
+target_link_libraries(main huffman_lib)

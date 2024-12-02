@@ -1,6 +1,7 @@
 #include "huffman.h"
 #include <iostream>
 #include <fstream>
+#include <filesystem>
 #include <stdexcept> // For exception handling
 
 using namespace std;
