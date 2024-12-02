@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "../Huffman_C/huffman.cpp" // Your Huffman implementation
+#include "../Huffman_C/huffman.h" // Your Huffman implementation
 
 // List of test case files
 const std::vector<std::string> testFiles = {

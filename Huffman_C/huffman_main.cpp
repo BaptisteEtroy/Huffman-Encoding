@@ -1,4 +1,11 @@
-#include "huffman.cpp"
+#include "huffman.h"
+#include <iostream>
+#include <string>
+
+using std::string;
+using std::cout;
+using std::cerr;
+using std::endl;
 
 int main(int argc, char* argv[]) {
     if (argc != 4) {
