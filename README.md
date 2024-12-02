@@ -25,24 +25,24 @@ Huffman Encoding is a project that implements a C++ algorithm for file compressi
 
 ```plaintext
 Huffman-Encoding/
-├── build/                # Build directory for compiled files
-├── googletest/           # GoogleTest library
+├── build/                 # Build directory for compiled files
+├── googletest/            # GoogleTest library
 ├── Huffman_C/            
-│   ├── huffman_main.cpp  # main function
-│   ├── huffman.cpp       # C++ implementation of Huffman Encoding
-│   ├── huffman.h         # Header file
-│   ├── main              # Compiled main executable (Linux/macOS)
-│   ├── main.exe          # Compiled main executable (Windows)
+│   ├── huffman_main.cpp   # main function
+│   ├── huffman.cpp        # C++ implementation of Huffman Encoding
+│   ├── huffman.h          # Header file
+│   ├── main               # Compiled main executable (Linux/macOS)
+│   ├── main.exe           # Compiled main executable (Windows)
 ├── templates/            
-│   └── index.html        # HTML template for Flask web app
+│   └── index.html         # HTML template for Flask web app
 ├── tests/    
-│   ├── Test Cases        # Test cases
-│   └── huffman_tests.cpp # GoogleTest
-├── app.py                # Flask app
-├── routes.py             # routes for webapp
-├── README.md             # Project documentation
+│   ├── Test Cases/        # Test cases
+│   └── huffman_tests.cpp  # GoogleTest
+├── app.py                 # Flask app
+├── routes.py              # routes for webapp
+├── README.md              # Project documentation
 ├── requirements.txt      
-└──  testing.md           # Testing documentation
+└──  testing.md            # Testing documentation
 ```
 
 ## Requirements
